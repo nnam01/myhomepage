@@ -6,6 +6,8 @@ import nnam01.MyHomePage.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/users")
@@ -19,4 +21,14 @@ public class UserController {
         User savedUser = userService.registerUser(user);
         return ResponseEntity.ok(savedUser);
     }
+    // 로그인 API
+    @PostMapping("/login")
+    public ResponseEntity<User> loginUser(@RequestBody Map<String, String> loginRequest) {
+        String username = loginRequest.get("username");
+        String password = loginRequest.get("password");
+
+        User user = userService.login(username, password);
+        return ResponseEntity.ok(user);
+    }
 }
+
